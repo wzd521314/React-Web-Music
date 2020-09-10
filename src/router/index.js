@@ -3,13 +3,13 @@ import React from 'react'
 import ZDDiscover from "@/pages/discover"
 import ZDFriend from "@/pages/friend"
 import ZDMine from "@/pages/mine"
-
+import ZDSong from "@/pages/discover/song"
 import ZDAlbum from "@/pages/discover/album"
 import ZDArtist from "@/pages/discover/artist"
 import ZDDjradio from "@/pages/discover/djradio"
 import ZDRanking from "@/pages/discover/ranking"
 import ZDRecommend from "@/pages/discover/recommend"
-import ZDSongs from "@/pages/discover/songs"
+import ZDPlaylist from "@/pages/discover/playlist"
 
 
 
@@ -44,8 +44,8 @@ const routes = [
         component: ZDRanking
       },
       {
-        path: '/discover/songs',
-        component: ZDSongs
+        path: '/discover/playlist',
+        component: ZDPlaylist
       },
       {
         path: '/discover/djradio',
@@ -58,6 +58,10 @@ const routes = [
       {
         path: '/discover/album',
         component: ZDAlbum
+      },
+      {
+        path: '/discover/song',
+        component: ZDSong
       }
     ]
 

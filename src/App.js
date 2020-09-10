@@ -9,6 +9,8 @@ import store  from "./store"
 import ZDAppheader from "@/components/app-header"
 import ZDAppfooter from "@/components/app-footer"
 
+import ZDAppPlayerBar from "@/pages/player/app-player-bar"
+
 
 
 export default memo(function App() {
@@ -18,6 +20,7 @@ export default memo(function App() {
         <ZDAppheader/>
         {renderRoutes(routes)}
         <ZDAppfooter/>
+        <ZDAppPlayerBar/>
       </HashRouter>
     </Provider>
   )

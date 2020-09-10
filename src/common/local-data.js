@@ -76,7 +76,7 @@ export const discoverMenu = [
   },
   {
     title: "歌单",
-    link: "/songs"
+    link: "/playlist"
   },
   {
     title: "主播电台",

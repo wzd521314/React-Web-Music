@@ -2,7 +2,7 @@ import {getSongDetail, getSongLyric}  from '@/services/player.js'
 import {getRandomNumber} from '@/utils/math-utils'
 import {parseLyric} from '@/utils/parse-lyric'
 
-import {GET_SONG_DETAIL, CHANGE_PLAYLIST, CHANG_CURRENT_SONG_INDEX, CHANG_CURRENT_SONG_SEQUENCE, CHANGE_CURRENT_SONG_LYRIC} from './constants'
+import {GET_SONG_DETAIL, CHANGE_PLAYLIST, CHANG_CURRENT_SONG_INDEX, CHANG_CURRENT_SONG_SEQUENCE, CHANGE_CURRENT_SONG_LYRIC, CHANGE_CURRENT_SONG_LYRIC_INDEX} from './constants'
 
 
 const changeCurrentSongIndexAction = index => ({
@@ -29,6 +29,13 @@ const changeLyric = (lyric) => ({
   type: CHANGE_CURRENT_SONG_LYRIC,
   lyric
 })
+
+export const changeCurrentSongLyricIndexAction = (index) => ({
+  type: CHANGE_CURRENT_SONG_LYRIC_INDEX,
+  currentSongLyricIndex: index
+})
+
+
 
 
 export  function changeMusicAction (tag) {

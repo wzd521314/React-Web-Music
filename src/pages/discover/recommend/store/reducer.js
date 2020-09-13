@@ -1,4 +1,4 @@
-import {TOP_BANNERS, HOT_RECOMMEND, NEW_ALBUM, UP_INCREASE_RANKING, NEW_SONG_RANKING, ORIGINAL_SONG_RANKING} from './constants'
+import {TOP_BANNERS, HOT_RECOMMEND, NEW_ALBUM, UP_INCREASE_RANKING, NEW_SONG_RANKING, ORIGINAL_SONG_RANKING , SETTLE_SINGER_LIST} from './constants'
 
 import {Map} from 'immutable'
 
@@ -9,7 +9,9 @@ const defaultState = Map({
   newAlbums: [],
   upRankingInfo: {},
   newRankingInfo: {},
-  originalRankingInfo: {}
+  originalRankingInfo: {},
+
+  settleSingerList: []
 })
 function reducer(state = defaultState, action) {
   switch(action.type) {
@@ -24,7 +26,9 @@ function reducer(state = defaultState, action) {
     case  NEW_SONG_RANKING:
       return state.set("newRankingInfo", action.newRankingInfo)
     case  ORIGINAL_SONG_RANKING:
-      return state.set("originalRankingInfo", action.originalRankingInfo)
+       return state.set("originalRankingInfo", action.originalRankingInfo)
+    case  SETTLE_SINGER_LIST:
+      return state.set("settleSingerList", action.settleSingerList)
     default:
       return state
   }

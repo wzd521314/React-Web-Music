@@ -1,7 +1,8 @@
 import React, { memo, useEffect, useRef, useCallback, useState } from 'react'
 import {useSelector, useDispatch, shallowEqual} from 'react-redux'
+import ZDAppPlayerPanel from '../app-player-panel'
 
-import {changeSequenceAction, getSongDetailAction, changeMusicAction} from  '../store/actionCreator'
+import {changeSequenceAction, getSongDetailAction, changeMusicAction, changeCurrentSongLyricIndexAction} from  '../store/actionCreator'
 import {getSizeImage, formatDate, getPlaySong} from '@/utils/format-utils'
 
 import {Slider} from 'antd'
@@ -16,29 +17,33 @@ export default memo(function ZDAppPlayerBar() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isInit, setInit] = useState(true)
   const [progress, setProgress] = useState(0)
+  const [isPanelShow, setIsPanelShow] = useState(false)
 
   //redux-hook
   const dispatch = useDispatch()
   
 
-  // useEffect(() => {
-  //   //默认打开页面自动加载疯人院歌曲
-  //   dispatch(getSongDetailAction(1439111141))
+  useEffect(() => {
+    //默认打开页面自动加载疯人院歌曲
+    dispatch(getSongDetailAction(1439111141))
 
 
-  // }, [dispatch])
+  }, [dispatch])
 
 
 
-  const {currentSong, sequence } = useSelector(state => ({
+  const {currentSong, sequence, currentSongLyric, currentSongLyricIndex } = useSelector(state => ({
     currentSong: state.playerInfo.get("currentSong"),
     sequence: state.playerInfo.get("sequence"),
+    currentSongLyric: state.playerInfo.get("currentSongLyric"),
+    currentSongLyricIndex: state.playerInfo.get("currentSongLyricIndex")
   }) ,shallowEqual)
 
 
   //当当前歌曲发生改变时调用该函数
   useEffect(() => {
     audioRef.current.src = getPlaySong(currentSong.id)
+    //第一次加载时不调用
     if(isInit) {
       setInit(false)
     }else {
@@ -82,6 +87,7 @@ export default memo(function ZDAppPlayerBar() {
     if(sequence === 2) {
       audioRef.current.pause()
       audioRef.current.currentTime = 0;
+      audioRef.current.play()
     } else {
       dispatch(changeMusicAction(1))
     }
@@ -89,12 +95,36 @@ export default memo(function ZDAppPlayerBar() {
 
   const timeUpdate = useCallback((e) => {
     //当滑块滑动时就不能在这里更新时间了
-    if(isChanging) return false
+    const currentTimeOrigin = e.target.currentTime
+    if(!isChanging) {
+      setCurrentTime(e.target.currentTime * 1000)
+      setProgress((currentTime / currentSong.dt) * 100)
+    }
     //更新当前播放时间
-    setCurrentTime(e.target.currentTime * 1000)
-    setProgress((currentTime / currentSong.dt) * 100)
-  } ,[currentTime, currentSong.dt, isChanging])
 
+    let lrcLength = currentSongLyric.length
+    
+    let i = 0;
+    let finalIndex = null;
+    for(; i< lrcLength; i++ ) {
+      const lrcTime = currentSongLyric[i].time
+      if(currentTimeOrigin*1000 < lrcTime) {
+
+
+        finalIndex = i - 1
+        
+        break
+        
+      }
+    }
+
+    
+    if(finalIndex !== currentSongLyricIndex) {
+      dispatch(changeCurrentSongLyricIndexAction(finalIndex))
+    }
+  }, [currentSong.dt, currentTime, isChanging])
+
+  
   // console.log((currentTime / currentSong.dt) * 100)
   // console.log(progress)
   
@@ -121,7 +151,7 @@ export default memo(function ZDAppPlayerBar() {
   } ,[currentSong.dt, isPlaying, playSong])
   
   const picUrl = currentSong.al && currentSong.al.picUrl
-
+  
   return (
     <PlayBarWrapper className="sprite_player" >
       <div className="content wrap-v2">
@@ -164,11 +194,13 @@ export default memo(function ZDAppPlayerBar() {
           <div className="right sprite_player">
             <button className="sprite_player btn volume"></button>
             <button className="sprite_player btn loop"  onClick={changeSequence}></button>
-            <button className="sprite_player btn playlist"></button>
+            <button className="sprite_player btn playlist" onClick={e => setIsPanelShow(!isPanelShow)}></button>
           </div>
         </Operator>
       </div>
       <audio ref={audioRef} onTimeUpdate={e => timeUpdate(e)} onEnded={e => {handleMusicEnded()}}></audio>
+      {/* {isPanelShow && } */}
+      <ZDAppPlayerPanel  height1={isPanelShow ? "301px" : "0px"}/>
     </PlayBarWrapper>
   )
 })

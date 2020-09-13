@@ -1,6 +1,6 @@
 import {Map} from 'immutable'
 
-import {GET_SONG_DETAIL, CHANGE_PLAYLIST, CHANG_CURRENT_SONG_INDEX, CHANG_CURRENT_SONG_SEQUENCE, CHANGE_CURRENT_SONG_LYRIC} from './constants'
+import {GET_SONG_DETAIL, CHANGE_PLAYLIST, CHANG_CURRENT_SONG_INDEX, CHANG_CURRENT_SONG_SEQUENCE, CHANGE_CURRENT_SONG_LYRIC, CHANGE_CURRENT_SONG_LYRIC_INDEX} from './constants'
 
 
 const defaultState = Map({
@@ -8,7 +8,8 @@ const defaultState = Map({
   currentSongIndex: 0,
   currentSong: {},
   sequence: 0,  //0 全局循环 1 随机播放 2 单曲循环
-  currentSongLyric: ''
+  currentSongLyric: [],
+  currentSongLyricIndex: -1
 }) 
 
 export default function (state = defaultState, action){
@@ -23,6 +24,8 @@ export default function (state = defaultState, action){
       return state.set("sequence", action.sequence)
     case CHANGE_CURRENT_SONG_LYRIC:
       return state.set("currentSongLyric", action.lyric)
+    case CHANGE_CURRENT_SONG_LYRIC_INDEX:
+      return state.set("currentSongLyricIndex", action.currentSongLyricIndex)
     default:
       return state
   }

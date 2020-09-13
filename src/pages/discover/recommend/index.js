@@ -4,8 +4,12 @@ import ZDTopBanner  from './cpns/top-banner'
 import ZDHotRecommend  from './cpns/hot-recommend'
 import ZDNewAlbum from './cpns/new-album'
 import ZDRanking from './cpns/recommend-ranking'
+import ZDHotRadio from './cpns/hot-radio'
+import ZDSettleSinger from './cpns/settle-singer'
+import ZDUserLogin from './cpns/user-login'
+
 import {
-  RecommendWrapper,
+  RecommendWrapper,     
   Content,
   RecommendLeft,
   RecommendRight
@@ -21,7 +25,11 @@ export default memo(function ZDRecommend() {
           <ZDNewAlbum></ZDNewAlbum>
           <ZDRanking></ZDRanking>
         </RecommendLeft>
-        <RecommendRight></RecommendRight>
+        <RecommendRight>
+          <ZDUserLogin/>
+          <ZDSettleSinger/>
+          <ZDHotRadio/>
+        </RecommendRight>
       </Content>
     </RecommendWrapper>
   )

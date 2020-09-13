@@ -38,3 +38,16 @@ export function getTopList (id) {
     path: "get"
   })
 }
+
+//歌手分类列表
+export function getArtistList (limit, type , area) {
+  return request({
+    url: '/artist/list',
+    params: {
+      limit,
+      type,
+      area
+    },
+    path: 'get'
+  })
+}

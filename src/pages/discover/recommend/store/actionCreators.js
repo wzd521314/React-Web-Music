@@ -1,6 +1,6 @@
-import {TOP_BANNERS, HOT_RECOMMEND, NEW_ALBUM, UP_INCREASE_RANKING, NEW_SONG_RANKING, ORIGINAL_SONG_RANKING} from './constants'
+import {TOP_BANNERS, HOT_RECOMMEND, NEW_ALBUM, UP_INCREASE_RANKING, NEW_SONG_RANKING, ORIGINAL_SONG_RANKING, SETTLE_SINGER_LIST} from './constants'
 
-import {getBanners, getHotRecommends, getNewAlbum, getTopList} from '@/services/recommend.js'
+import {getBanners, getHotRecommends, getNewAlbum, getTopList , getArtistList} from '@/services/recommend.js'
 
 //获取轮播图数据
 export function getTopBannersAction() {
@@ -30,6 +30,9 @@ export function getHotRecommendAction(count) {
     })
   }
 }
+
+
+
 
 //获取新碟上架数据
 export function getNewAlbumAction(count) {
@@ -79,6 +82,20 @@ export function getTopListAction (id) {
         default:
       }
       
+    })
+  }
+}
+
+
+//获取入驻歌手信息
+const settleSingerAction = (settleSingerList) => ({
+  type: SETTLE_SINGER_LIST,
+  settleSingerList
+})
+export function changeSettleSingerAction (limit , type , area) {
+  return (dispatch) => {
+    getArtistList(limit , type , area).then(res => {
+      dispatch(settleSingerAction(res.data.artists))
     })
   }
 }

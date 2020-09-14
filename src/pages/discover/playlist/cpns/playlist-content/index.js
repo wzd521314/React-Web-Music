@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 import {changeCurrentCategoryPlaylist} from "../../store/actionCreator"

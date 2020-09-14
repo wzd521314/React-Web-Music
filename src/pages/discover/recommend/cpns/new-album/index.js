@@ -42,7 +42,7 @@ export default memo(function ZDNewAlbum() {
                   <div key={item} className="page">
                     {
                       newAlbum.slice(item*5, (item+1)*5).map((iten, index) => {
-                      return <ZDAlbumCover key={iten.id} info={iten} size={100} width={118} bgp="-570px">{iten.name}</ZDAlbumCover>
+                      return <ZDAlbumCover key={iten.id} info={iten} >{iten.name}</ZDAlbumCover>
                       })
                     }
                   </div>

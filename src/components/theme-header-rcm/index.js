@@ -13,7 +13,7 @@ export default memo(function ZDThemeHeaderRCM(props) {
           {
             keywords.map((item, index) => {
               return (
-                <div className="item" key={item}>
+                <div className="item" key={index}>
                   <a href="todo">{item}</a>
                   <span className="divider">|</span>
                 </div>

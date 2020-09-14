@@ -1,6 +1,6 @@
 import React, { useEffect, memo , useState } from 'react';
 import { useDispatch} from "react-redux";
-import { useLocation , useHistory} from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import {changeCategoriesAction, changeCurrentCategoryPlaylist, changeCurrentCategoriesAction} from './store/actionCreator'
 
 import url from 'url'
@@ -40,7 +40,12 @@ export default memo(function ZDPlaylist() {
     setIsShowCategories(false)
     if(cat) {
       dispatch(changeCurrentCategoriesAction(cat))
-      dispatch(changeCurrentCategoryPlaylist(0))
+      console.log(cat);
+      
+      dispatch(changeCurrentCategoryPlaylist(0)).then(res => {
+        document.documentElement.scrollTop = 0
+      })
+
     }else {
       dispatch(changeCurrentCategoriesAction("全部"))
       dispatch(changeCurrentCategoryPlaylist(0))

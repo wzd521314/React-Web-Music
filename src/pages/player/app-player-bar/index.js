@@ -23,12 +23,12 @@ export default memo(function ZDAppPlayerBar() {
   const dispatch = useDispatch()
   
 
-  useEffect(() => {
-    //默认打开页面自动加载疯人院歌曲
-    dispatch(getSongDetailAction(1439111141))
+  // useEffect(() => {
+  //   //默认打开页面自动加载疯人院歌曲
+  //   dispatch(getSongDetailAction(1439111141))
 
 
-  }, [dispatch])
+  // }, [dispatch])
 
 
 

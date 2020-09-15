@@ -32,7 +32,7 @@ export default memo(function ZDPlaylist() {
 
   //根据路由参数来更新页面的数据
   useEffect(() => {
-    console.log(3333);
+    console.log(33);
     
     const cat = url.parse(routerInfo.search , true).query.cat
     //无论变成什么路由，分页的页码都得重置为1,分类栏都得关闭

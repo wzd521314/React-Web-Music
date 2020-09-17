@@ -1,29 +1,30 @@
 import React, { memo } from 'react'
 import {useDispatch} from 'react-redux'
 import {OperationBarWrapper}  from './style'
-import {getSongDetailAction , addSongAction} from "@/pages/player/store"
+import {getSongDetailAction , addGroupSongAction} from "@/pages/player/store"
 
-export default memo(function ZDSongOperationBar(props) {
-  const { favorTitle, shareTitle, downloadTitle, commentTitle, songId } = props;
+export default memo(function ZDGroupSongOperationBar(props) {
+  const { favorTitle, shareTitle, downloadTitle, commentTitle, tracks } = props;
   const dispatch = useDispatch()
 
-  const playMusic = (id) => {
-    dispatch(getSongDetailAction(id))
+  const addGroupMusic = (tracks) => {
+    dispatch(addGroupSongAction(tracks))
   }
-  const addMusic = (id) => {
-    dispatch(addSongAction(id))
+  const playGroupMusic = (tracks) => {
+    dispatch(addGroupSongAction(tracks))
+    dispatch(getSongDetailAction(tracks[0].id))
   }
 
   return (
     <OperationBarWrapper>
       <span className="play">
-        <a href="javascript:;" className="play-icon sprite_button" onClick={e => playMusic(songId)}>
+        <a href="javascript:;" className="play-icon sprite_button" onClick={e => playGroupMusic(tracks)}>
           <span className="play sprite_button">
             <i className="sprite_button"></i>
             <span>播放</span>
           </span>
         </a>
-        <a href="javascript:;" className="add-icon sprite_button" onClick={e => addMusic(songId)}>+</a>
+        <a href="javascript:;" className="add-icon sprite_button" onClick={e => addGroupMusic(tracks)}>+</a>
       </span>
       <a href="/abc" className="item sprite_button">
         <i className="icon favor-icon sprite_button">{favorTitle}</i>

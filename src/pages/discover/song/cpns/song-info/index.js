@@ -60,7 +60,8 @@ export default memo(function ZDSongInfo() {
         <ZDSongOperationBar favorTitle="收藏"
                             shareTitle="分享"
                             downloadTitle="下载"
-                            commentTitle="(167366)"/>
+                            commentTitle="(167366)"
+                            songId={currentSong.id}/>
 
         <div className="lyric">
           <div className="lyric-info">

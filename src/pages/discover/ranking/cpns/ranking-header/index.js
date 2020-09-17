@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import { useSelector, shallowEqual } from "react-redux";
 
 import { formatMonthDay } from "@/utils/format-utils";
-import ZDSongOperationBar from '@/components/song-operation-bar'
+import ZDGroupSongOperationBar from '@/components/group-song-operation-bar'
 import {RankingHeaderWrapper} from './style'
 
 export default memo(function ZDRankingHeader() {
@@ -24,9 +24,10 @@ export default memo(function ZDRankingHeader() {
           <div>最近更新：{formatMonthDay(playList.updateTime)}</div>
           <div className="update-f">（{"每日更新:TODO"}）</div>
         </div>
-        <ZDSongOperationBar favorTitle={`(${playList.subscribedCount})`}
+        <ZDGroupSongOperationBar favorTitle={`(${playList.subscribedCount})`}
                             shareTitle={`(${playList.shareCount})`}
                             downloadTitle="下载"
+                            tracks={playList.tracks}
                             commentTitle={`(${playList.commentCount})`}/>
       </div>
     </RankingHeaderWrapper>

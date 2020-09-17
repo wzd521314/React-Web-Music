@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const PlayListWrapper = styled.div`
   position: relative;
+  overflow: auto;
   width: 553px;
   padding: 2px;
 
@@ -28,6 +29,12 @@ export const PlayListWrapper = styled.div`
         background: url(${require("@/assets/img/playlist_sprite.png")}) -182px 0;
       }
     }
+    &:hover {
+      color: #fff;
+      background-color: #000;
+
+    }
+  }
 
     .right {
       display: flex;
@@ -43,10 +50,14 @@ export const PlayListWrapper = styled.div`
 
       .link {
         margin-left: 20px;
+        cursor: pointer;
         width: 14px;
         height: 16px;
-        background-position: -100px 0;
+        background-position: -51px 0;
+        &:hover {
+          background-position: -51px -20px;
+        }
       }
-    }
+    
   }
 `

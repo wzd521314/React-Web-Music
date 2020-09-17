@@ -40,10 +40,17 @@ export const TopRankingWrapper = styled.div`
 
       .play {
         background-position: -267px -205px;
+        &:hover {
+          background-position: -267px -235px;
+        }
       }
 
       .favor {
         background-position: -300px -205px;
+        &:hover {
+          background-position: -300px -235px;
+        }
+
       }
     }
   }
@@ -76,6 +83,11 @@ export const TopRankingWrapper = styled.div`
 
         .name {
           flex: 1;
+          color: #000;
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
         }
 
         .operate {
@@ -99,6 +111,10 @@ export const TopRankingWrapper = styled.div`
             position: relative;
             top: 2px;
             background-position: 0 -700px;
+            &:hover {
+              background-position: -22px -700px;
+            }
+
           }
 
           .favor {

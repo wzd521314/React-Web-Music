@@ -99,7 +99,9 @@ body, textarea, select, input, button {
 .sprite_table {
   background: url(../img/sprite_table.png) no-repeat 0 9999px;
 }
-
+.playlist_sprite {
+  background: url(../img/playlist_sprite.png) no-repeat 0 9999px;
+}
 .image_cover {
   position: absolute;
   left: 0;

@@ -32,7 +32,7 @@ export default memo(function ZDRanking() {
 
   return (
     <RankingWrapper>
-      <ZDThemeHeaderRCM title="榜单"></ZDThemeHeaderRCM>
+      <ZDThemeHeaderRCM title="榜单" url="/discover/ranking"></ZDThemeHeaderRCM>
       <div className="tops">
         <ZDTopRanking info={upIncreaseRanking}></ZDTopRanking>
         <ZDTopRanking info={newSongRanking}></ZDTopRanking>

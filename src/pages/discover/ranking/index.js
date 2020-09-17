@@ -16,6 +16,7 @@ export default memo(function ZDRanking() {
   const dispatch = useDispatch()
   
   useEffect(() => {
+    document.documentElement.scrollTop = 0
     dispatch(changeTopListAction())
   }, [dispatch])
 

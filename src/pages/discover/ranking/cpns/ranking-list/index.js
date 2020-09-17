@@ -1,5 +1,8 @@
 import React, { memo } from 'react';
+import {NavLink} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
 import { useSelector, shallowEqual } from "react-redux";
+import {getSongDetailAction , addSongAction} from "@/pages/player/store"
 
 import {
   getSizeImage,
@@ -11,10 +14,17 @@ import  ZDThemeHeaderSong from '@/components/theme-header-song'
 import {RankingListWrapper} from './style'
 
 export default memo(function ZDRankingList() {
-  
+  const dispatch = useDispatch()
   const {tracks} = useSelector(state => ({
     tracks: state.rankingInfo.get("playList").tracks
   }) , shallowEqual)
+
+  const playMusic = id => {
+    dispatch(getSongDetailAction(id))
+  }
+  const addMusic = id => {
+    dispatch(addSongAction(id))
+  }
   return (
     <RankingListWrapper>
       <ZDThemeHeaderSong />
@@ -45,12 +55,12 @@ export default memo(function ZDRankingList() {
                           index < 3 ?
                             (<img src={getSizeImage(item.al.picUrl, 50)} alt="" />) : null
                         }
-                        <span className="play sprite_table"></span>
-                        <span className="name">{item.name}</span>
+                        <span className="play sprite_table" onClick={e => playMusic(item.id)}></span>
+                        <NavLink to={`/discover/song?id=${item.id}`} className="name">{item.name}</NavLink>
                       </div>
                     </td>
                     <td>{formatMinuteSecond(item.dt)}</td>
-                    <td>{item.ar[0].name}</td>
+                    <td className="artist">{item.ar[0].name}</td>
                   </tr>
                 )
               })

@@ -34,8 +34,16 @@ export const RankingListWrapper = styled.div`
       }
 
       tbody {
+        .artist {
+            cursor: pointer;
+            &:hover {
+              text-decoration: underline
+            }
+          }
+
         td {
           padding: 6px 10px;
+          
         }
 
         tr:nth-child(2n) {
@@ -74,14 +82,23 @@ export const RankingListWrapper = styled.div`
           }
 
           .play {
+            cursor: pointer;
             width: 17px;
             height: 17px;
             background-position: 0 -103px;
+            &:hover {
+              background-position: 0 -128px;
+            }
           }
 
           .name {
+            cursor: pointer;
             margin-left: 10px;
+            &:hover {
+              text-decoration: underline;
+            }
           }
+
         }
       }
     }

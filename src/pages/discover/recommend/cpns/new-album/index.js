@@ -31,7 +31,7 @@ export default memo(function ZDNewAlbum() {
 
   return (
     <AlbumWrapper>
-      <ZDThemeHeaderRCM title="新碟上架"></ZDThemeHeaderRCM>
+      <ZDThemeHeaderRCM title="新碟上架" url="/discover/album"></ZDThemeHeaderRCM>
       <div className="content">
         <button className="arrow-left arrow sprite_02" onClick={e => pageRef.current.prev()}></button>
         <div className="album">

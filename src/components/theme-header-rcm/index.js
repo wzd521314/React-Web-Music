@@ -1,9 +1,9 @@
 import React, { memo } from 'react'
-
+import {NavLink} from 'react-router-dom'
 import {HeaderWrapper} from './style'
 export default memo(function ZDThemeHeaderRCM(props) {
 
-  const {title, keywords= []} = props
+  const {title, keywords= [] , url = '' , query} = props
 
   return (
     <HeaderWrapper className="sprite_02">
@@ -14,7 +14,7 @@ export default memo(function ZDThemeHeaderRCM(props) {
             keywords.map((item, index) => {
               return (
                 <div className="item" key={index}>
-                  <a href="todo">{item}</a>
+                  <NavLink to={`${url}${query}${item}`}>{item}</NavLink>
                   <span className="divider">|</span>
                 </div>
               )
@@ -23,7 +23,7 @@ export default memo(function ZDThemeHeaderRCM(props) {
         </div>
       </div>
       <div className="right">
-        <a href="todo">更多</a>
+        <NavLink to={url}>更多</NavLink>
         <i className="icon sprite_02"></i>
       </div>
     </HeaderWrapper>

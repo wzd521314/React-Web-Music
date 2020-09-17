@@ -19,6 +19,10 @@ export default memo(function ZDSong() {
   const dispatch = useDispatch()
   const routerInfo = useLocation()
 
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0
+  }, [])
   //监听路由，根据歌曲id来更新信息
   useEffect(()=> {
     const id = parseInt(url.parse(routerInfo.search , true).query.id)

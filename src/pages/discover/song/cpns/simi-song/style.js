@@ -33,11 +33,21 @@ export const SimiSongWrapper = styled.div`
 
         .play {
           background-position: -69px -455px;
+          cursor: pointer;
+          opacity: 0.8;
           margin-right: 10px;
+          &:hover {
+            opacity: 1;
+          }
         }
 
         .add {
+          cursor: pointer;
           background-position: -87px -454px;
+          opacity: 0.8;
+          &:hover {
+            opacity: 1;
+          }
         }
       }
     }

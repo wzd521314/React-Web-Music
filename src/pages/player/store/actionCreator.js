@@ -72,6 +72,107 @@ export function changeSequenceAction (sequence) {
   }
 }
 
+//将歌曲添加到歌单内
+export function addSongAction (ids) {
+  return (dispatch, getState) => {
+    //根据id查找playlist是否已经有了该歌曲
+    const playlist = getState().playerInfo.get("playList")
+    const index = playlist.findIndex (item => item.id === ids)
+    let song = null
+
+    if(index !== -1) {
+      //如果歌单内存在该歌曲，则return出去
+      return
+    }else {
+      //如果歌单内没有该歌曲，则添加到歌单内
+      getSongDetail(ids).then(res => {
+        song = res.data.songs &&  res.data.songs[0]
+        if(!song) return
+        const newPlaylist = [...playlist]
+        newPlaylist.push(song)
+        dispatch(changePlaylist(newPlaylist))
+      })
+    }
+  }
+}
+
+//将所有绑单内的歌曲添加到歌单内
+export function addGroupSongAction (tracks) {
+  return (dispatch, getState) => {
+    const playlist = getState().playerInfo.get("playList")
+    const newPlaylist = [...playlist, ...tracks]
+
+    dispatch(changePlaylist(newPlaylist))
+    // //根据id查找playlist是否已经有了该歌曲
+    // const playlist = getState().playerInfo.get("playList")
+    // const index = playlist.findIndex (item => item.id === ids)
+    // let song = null
+
+    // if(index !== -1) {
+    //   //如果歌单内存在该歌曲，则return出去
+    //   return
+    // }else {
+    //   //如果歌单内没有该歌曲，则添加到歌单内
+    //   getSongDetail(ids).then(res => {
+    //     song = res.data.songs &&  res.data.songs[0]
+    //     if(!song) return
+    //     const newPlaylist = [...playlist]
+    //     newPlaylist.push(song)
+    //     dispatch(changePlaylist(newPlaylist))
+    //   })
+    // }
+  }
+}
+
+//将歌曲从歌单内删除
+export function deleteSongAction (ids) {
+  return (dispatch, getState) => {
+    //根据id查找playlist是否已经有了该歌曲
+    const playlist = getState().playerInfo.get("playList")
+    const currentSongIndex = getState().playerInfo.get("currentSongIndex")
+    const index = playlist.findIndex (item => item.id === ids)
+
+    const newPlaylist = [...playlist]
+    newPlaylist.splice(index, 1)
+
+    //首先判断删除的歌曲是否是当前歌曲，不是的话直接删掉就行了
+    if(playlist[currentSongIndex].id === ids) {
+      if(index !== -1) {
+        //如果歌单类有这首歌，则将其从歌单删除
+          //如果删除的不是是最后那一首歌曲则需要切换到下一首
+        if(index !== playlist.length - 1) {
+          const song = playlist[index + 1]
+          dispatch(changeCurrentSongIndexAction(index))
+          dispatch(changeCurrentSongAction(playlist[index + 1]))
+          getSongLyric(song.id).then(res => {
+            const lyricArray = parseLyric(res.data.lrc.lyric)
+            dispatch(changeLyric(lyricArray))
+          })
+        }else {
+          //如果是列表最下面那一首则切换到上一首
+            //如果是整个列表的最后一首歌那就返回
+          if(index === 0) {
+            dispatch(changePlaylist(newPlaylist))
+            return
+          } ;
+          const song = playlist[index - 1]
+          dispatch(changeCurrentSongIndexAction(index - 1))
+          dispatch(changeCurrentSongAction(playlist[index - 1]))
+          getSongLyric(song.id).then(res => {
+            const lyricArray = parseLyric(res.data.lrc.lyric)
+            dispatch(changeLyric(lyricArray))
+          })
+  
+        }
+        dispatch(changePlaylist(newPlaylist))
+  
+      }
+    }else {
+      dispatch(changePlaylist(newPlaylist))
+    }
+  }
+}
+
 export function getSongDetailAction (ids)  {
 
   return (dispatch, getState) => {
@@ -109,9 +210,5 @@ export function getSongDetailAction (ids)  {
           })
       })
     }
-    
-    
-    
-
   }
 }

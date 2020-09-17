@@ -1,8 +1,11 @@
 import reducer from './reducer.js'
 
-import {getSongDetailAction} from './actionCreator'
+import {getSongDetailAction , addSongAction , deleteSongAction, addGroupSongAction} from './actionCreator'
 
 export {
   reducer,
-  getSongDetailAction
+  getSongDetailAction,
+  addSongAction,
+  deleteSongAction,
+  addGroupSongAction
 }

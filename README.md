@@ -1,3 +1,8 @@
+
+该项目使用前需要搭配 https://github.com/Binaryify/NeteaseCloudMusicApi 后台接口使用，用于获取数据
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

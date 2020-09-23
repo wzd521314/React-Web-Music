@@ -10,6 +10,7 @@ import ZDPlaylistContent from './cpns/playlist-content'
 
 import {SongsWrapper} from './style'
 export default memo(function ZDPlaylist() {
+  const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch()
   const routerInfo = useLocation()
@@ -21,41 +22,34 @@ export default memo(function ZDPlaylist() {
     dispatch(changeCategoriesAction())
   } , [dispatch])
 
-  // //当router发生改变时，如果是第一次进入则正常操作，如果不是第一次则说明是在页内点击了分类产生的跳转，可以在url改变后刷新一次页面
-  // useEffect(() => {
-  //   if(!initial) {
-  //     setInitial(true)
-  //   }else {
-  //     history.go(0)
-  //   }
-  // }, [routerInfo])
-
+  
+  
   //根据路由参数来更新页面的数据
   useEffect(() => {
-    console.log(33);
-    
+    setIsLoading(false)
     const cat = url.parse(routerInfo.search , true).query.cat
     //无论变成什么路由，分页的页码都得重置为1,分类栏都得关闭
     setCurrentPage(1)
     setIsShowCategories(false)
     if(cat) {
       dispatch(changeCurrentCategoriesAction(cat))
-      console.log(cat);
-      
       dispatch(changeCurrentCategoryPlaylist(0)).then(res => {
         document.documentElement.scrollTop = 0
+        setIsLoading(true)
       })
-
     }else {
       dispatch(changeCurrentCategoriesAction("全部"))
-      dispatch(changeCurrentCategoryPlaylist(0))
+      dispatch(changeCurrentCategoryPlaylist(0)).then(res => {
+        document.documentElement.scrollTop = 0
+        setIsLoading(true)
+      })
     }
   }, [dispatch, routerInfo])
 
 
 
 
-  return (
+  return !isLoading ? <div style={{height: '100vh',}}></div> : (
     <SongsWrapper className="wrap-v2">
       <ZDPlaylistHeader isShowCategories={isShowCategories} setIsShowCategories={setIsShowCategories}/>
       <ZDPlaylistContent currentPage={currentPage} setCurrentPage={setCurrentPage}/>

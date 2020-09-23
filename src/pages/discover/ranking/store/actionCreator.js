@@ -14,10 +14,12 @@ const playListAction = (playList) => ({
 })
 
 export function changeTopListAction () {
-  return (dispatch) => {
-    getTopList().then(res => {
+  return  async (dispatch) => {
+    await getTopList().then(res => {
       dispatch(topListAction(res.data.list))
     })
+
+    return Promise.resolve()
   }
 }
 
@@ -30,10 +32,12 @@ export function changeCurrentToplistIndex (index) {
 
 
 export function changePlayListAction (id) {
-  return (dispatch) => {
-    getPlayList(id).then(res => {
+  return  async (dispatch) => {
+    await getPlayList(id).then(res => {
       dispatch(playListAction(res.data.playlist))
     })
+
+    return Promise.resolve()
   }
 }
 

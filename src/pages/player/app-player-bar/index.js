@@ -18,28 +18,18 @@ export default memo(function ZDAppPlayerBar() {
   const [isInit, setInit] = useState(true)
   const [progress, setProgress] = useState(0)
   const [isPanelShow, setIsPanelShow] = useState(false)
-
   //redux-hook
   const dispatch = useDispatch()
-  
-
-  // useEffect(() => {
-  //   //默认打开页面自动加载疯人院歌曲
-  //   dispatch(getSongDetailAction(1439111141))
-
-
-  // }, [dispatch])
-
-
-
+  useEffect(() => {
+    //默认打开页面自动加载疯人院歌曲
+    dispatch(getSongDetailAction(1439111141))
+  }, [dispatch])
   const {currentSong, sequence, currentSongLyric, currentSongLyricIndex } = useSelector(state => ({
     currentSong: state.playerInfo.get("currentSong"),
     sequence: state.playerInfo.get("sequence"),
     currentSongLyric: state.playerInfo.get("currentSongLyric"),
     currentSongLyricIndex: state.playerInfo.get("currentSongLyricIndex")
   }) ,shallowEqual)
-
-
   //当当前歌曲发生改变时调用该函数
   useEffect(() => {
     audioRef.current.src = getPlaySong(currentSong.id)

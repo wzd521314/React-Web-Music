@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import {getSizeImage} from '@/utils/format-utils'
 import {NavLink} from 'react-router-dom'
 import {getSongDetailAction , addSongAction, addGroupSongAction} from "@/pages/player/store"
@@ -11,7 +12,7 @@ export default memo(function ZDTopRanking(props) {
 
   //redux-hook
   const dispatch = useDispatch()
-
+  const history = useHistory()
   const playMusic = (item) => {
     
     dispatch(getSongDetailAction(item.id))
@@ -29,16 +30,18 @@ export default memo(function ZDTopRanking(props) {
     dispatch(addGroupSongAction(tracks))
     dispatch(getSongDetailAction(tracks[0].id))
   }
-
+  const handleClick = (id) => {
+    history.push(`/discover/ranking?id=${id}`)
+  }
   return (
     <TopRankingWrapper>
       <div className="header">
         <div className="image">
           <img src={getSizeImage(info.coverImgUrl)} alt=""/>
-          <a href="/todo" className="image_cover">ranking</a>
+          <NavLink to={`/discover/ranking?id=${info.id}`} className="image_cover">ranking</NavLink>
         </div>
         <div className="info">
-          <a href="/todo">{info.name}</a>
+          <NavLink to={`/discover/ranking?id=${info.id}`}>{info.name}</NavLink>
           <div>
             <button className="btn play sprite_02" onClick={e => playGroupMusic(tracks)}></button>
             <button className="btn favor sprite_02" onClick={e => addGroupMusic(tracks)}></button>
@@ -66,7 +69,7 @@ export default memo(function ZDTopRanking(props) {
         } 
       </div>
       <div className="footer">
-        <a href="/todo">查看全局 &gt;</a>
+        <NavLink to={`/discover/ranking?id=${info.id}`}>查看全局 &gt;</NavLink>
       </div>
     </TopRankingWrapper>
   )

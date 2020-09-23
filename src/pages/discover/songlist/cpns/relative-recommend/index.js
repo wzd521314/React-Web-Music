@@ -1,15 +1,14 @@
-import React, { memo, useEffect } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import React, { memo } from 'react';
+import {  useSelector, shallowEqual } from 'react-redux';
 import { getSizeImage } from '@/utils/format-utils';
 import {NavLink} from 'react-router-dom'
-
 import ZDThemeHeaderPlayer from '@/components/theme-header-player';
 
 
 import {SimiPlaylistWrapper} from './style'
-export default memo(function ZDSimiPlaylist() {
-  const { simiPlaylist } = useSelector(state => ({
-    simiPlaylist: state.songInfo.get("simiPlaylist")
+export default memo(function ZDRelativeRecommend() {
+  const { songlist } = useSelector(state => ({
+    songlist: state.songlistInfo.get("recommendSonglist")
   }), shallowEqual);
 
   return (
@@ -17,7 +16,7 @@ export default memo(function ZDSimiPlaylist() {
       <ZDThemeHeaderPlayer title="包含这首歌的歌单" />
       <div className="songs">
         {
-          simiPlaylist.map((item, index) => {
+          songlist.map((item, index) => {
             return (
               <div className="song-item" key={item.id}>
                 <NavLink to={`/discover/songlist?id=${item.id}`} className="image" href="/#">
@@ -38,3 +37,4 @@ export default memo(function ZDSimiPlaylist() {
     </SimiPlaylistWrapper>
   )
 })
+

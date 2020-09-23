@@ -1,8 +1,12 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import {NavLink} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import { useSelector, shallowEqual } from "react-redux";
-import {getSongDetailAction , addSongAction} from "@/pages/player/store"
+import {getSongDetailAction} from "@/pages/player/store"
+
+
+
+
 
 import {
   getSizeImage,
@@ -15,19 +19,20 @@ import {RankingListWrapper} from './style'
 
 export default memo(function ZDRankingList() {
   const dispatch = useDispatch()
-  const {tracks} = useSelector(state => ({
-    tracks: state.rankingInfo.get("playList").tracks
+
+  const {tracks, playList} = useSelector(state => ({
+    tracks: state.rankingInfo.get("playList").tracks,
+    playList: state.rankingInfo.get("playList")
   }) , shallowEqual)
+  
+
 
   const playMusic = id => {
     dispatch(getSongDetailAction(id))
   }
-  const addMusic = id => {
-    dispatch(addSongAction(id))
-  }
   return (
     <RankingListWrapper>
-      <ZDThemeHeaderSong />
+      <ZDThemeHeaderSong trackCount={playList.trackCount}  playCount={playList.playCount}/>
       <div className="play-list">
         <table>
           <thead>

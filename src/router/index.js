@@ -8,6 +8,7 @@ import ZDAlbum from "@/pages/discover/album"
 import ZDArtist from "@/pages/discover/artist"
 import ZDDjradio from "@/pages/discover/djradio"
 import ZDRadioCategoryContent from "@/pages/discover/djradio/cpns/radio-category-content"
+import ZDSongList from '@/pages/discover/songlist'
 import ZDRadioMain from "@/pages/discover/djradio/cpns/radio-main"
 import ZDRanking from "@/pages/discover/ranking"
 import ZDRecommend from "@/pages/discover/recommend"
@@ -48,6 +49,10 @@ const routes = [
       {
         path: '/discover/playlist',
         component: ZDPlaylist
+      },
+      {
+        path: '/discover/songlist',
+        component: ZDSongList
       },
       {
         path: '/discover/djradio',

@@ -32,7 +32,7 @@ export default memo(function ZDPlayList() {
             <div key={item.id}
                  className={classNames("play-item", {"active": currentSongIndex === index})}
                  onClick={e => playMusic(item)}>
-              <div className="left">{item.name}</div>
+              <div className="left text-nowrap">{item.name}</div>
               <div className="right">
                 <span className="singer text-nowrap">{item.ar[0].name}</span>
                 <span className="duration">{formatMinuteSecond(item.dt)}</span>
@@ -40,7 +40,10 @@ export default memo(function ZDPlayList() {
               </div>
             </div>
           )
-        })
+        }) 
+      }
+      {
+        playList.length ? undefined : <div className="tips">你还没有添加任何歌曲</div>
       }
     </PlayListWrapper>
   )

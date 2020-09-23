@@ -13,6 +13,10 @@ export function getSizeImage(imgUrl, size) {
   return `${imgUrl}?param=${size}x${size}`;
 }
 
+export function getSizeImage1(imgUrl, size) {
+  return `${imgUrl}?param=${size}y${size}`;
+}
+
 export function formatDate(time, fmt) {
   let date = new Date(time);
 
@@ -20,6 +24,7 @@ export function formatDate(time, fmt) {
     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
   }
   let o = {
+    "Y+": date.getYear(),
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
     'h+': date.getHours(),
@@ -41,6 +46,10 @@ function padLeftZero(str) {
 
 export function formatMonthDay(time) {
   return formatDate(time, "MM月dd日");
+}
+
+export function formatYearMonthDay (time) {
+  return formatDate(time, "YYYY-MM-dd")
 }
 
 export function formatMinuteSecond(time) {

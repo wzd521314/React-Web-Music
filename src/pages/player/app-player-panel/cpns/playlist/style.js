@@ -5,7 +5,16 @@ export const PlayListWrapper = styled.div`
   overflow: auto;
   width: 553px;
   padding: 2px;
-
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  .tips {
+    position: absolute;
+    color: #aaa;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% -50%)
+  }
   .play-item {
     padding: 0 8px 0 25px;
     display: flex;

@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo , useState } from 'react';
 import { useDispatch } from "react-redux";
 import { useLocation } from 'react-router-dom';
 import url from 'url'
@@ -18,32 +18,28 @@ import {SongLeft, SongRight, SongWrapper} from './style'
 export default memo(function ZDSong() {
   const dispatch = useDispatch()
   const routerInfo = useLocation()
+  const [isLoading, setIsLoading] = useState(false)
 
-
-  useEffect(() => {
-    document.documentElement.scrollTop = 0
-  }, [])
   //监听路由，根据歌曲id来更新信息
   useEffect(()=> {
+    document.documentElement.scrollTop = 0
+    setIsLoading(false)
     const id = parseInt(url.parse(routerInfo.search , true).query.id)
     if(!id) return ;
-    dispatch(changeCurrentSongLyricAction(id))
-    dispatch(changeCurrentSongAction(id))
-    dispatch(changeSimiPlaylistAction(id))
-    dispatch(changeSimiSongAction(id))
+    Promise.all([dispatch(changeCurrentSongLyricAction(id)), dispatch(changeCurrentSongAction(id)), dispatch(changeSimiPlaylistAction(id)), dispatch(changeSimiSongAction(id))]).then(res => {
+      setIsLoading(true)
+    })
   }, [dispatch, routerInfo])
 
-  return (
+  return ( !isLoading ? <div style={{height: '100vh'}}></div> :
     <SongWrapper>
       <div className="content wrap-v2">
         <SongLeft>
           <ZDSongInfo />
-          <h2>SongContent</h2>
         </SongLeft>
         <SongRight>
           <ZDSimiPlaylist />
           <ZDSimiSong />
-          <h2>Download</h2>
         </SongRight>
       </div>
     </SongWrapper>

@@ -60,8 +60,12 @@ export  function changeMusicAction (tag) {
     dispatch(changeCurrentSongIndexAction(currentIndex))
     
     getSongLyric(currentSong.id).then(res => {
-      const lyricArray = parseLyric(res.data.lrc.lyric)
-      dispatch(changeLyric(lyricArray))
+      if(res.data.lrc) {
+        const lyricArray = parseLyric(res.data.lrc.lyric)
+        dispatch(changeLyric(lyricArray))
+      }else {
+        dispatch(changeLyric([]))
+      }
     })
   }
 }
@@ -153,6 +157,7 @@ export function deleteSongAction (ids) {
             //如果是整个列表的最后一首歌那就返回
           if(index === 0) {
             dispatch(changePlaylist(newPlaylist))
+            dispatch(changeCurrentSongIndexAction(-1))
             return
           } ;
           const song = playlist[index - 1]
@@ -168,8 +173,26 @@ export function deleteSongAction (ids) {
   
       }
     }else {
-      dispatch(changePlaylist(newPlaylist))
+      //判断删除的这首歌是在当前歌曲的上面还是下面
+      if(currentSongIndex > index) {
+        dispatch(changePlaylist(newPlaylist))
+        console.log(index);
+        
+        dispatch(changeCurrentSongIndexAction(currentSongIndex - 1))
+
+      }else {
+        dispatch(changePlaylist(newPlaylist))
+        
+      }
     }
+  }
+}
+
+//清空当前歌曲栏内的所有歌曲
+export function deleteAllAction () {
+  return dispatch => {
+    dispatch(changePlaylist([]))
+    dispatch(changeCurrentSongIndexAction(-1))
   }
 }
 
@@ -188,8 +211,12 @@ export function getSongDetailAction (ids)  {
       dispatch(changeCurrentSongIndexAction(index))
       dispatch(changeCurrentSongAction(playlist[index]))
       getSongLyric(song.id).then(res => {
-        const lyricArray = parseLyric(res.data.lrc.lyric)
-        dispatch(changeLyric(lyricArray))
+        if(!res.data.lrc) {
+          dispatch(changeLyric([]))
+        }else {
+          const lyricArray = parseLyric(res.data.lrc.lyric)
+          dispatch(changeLyric(lyricArray))
+        }
       })
     }else {
       //2.2 没有找到该歌曲，则需要请求该歌曲的数据
@@ -205,9 +232,15 @@ export function getSongDetailAction (ids)  {
         dispatch(changeCurrentSongIndexAction(newPlaylist.length - 1))
         dispatch(changeCurrentSongAction(song))
         getSongLyric(song.id).then(res => {
-          const lyricArray = parseLyric(res.data.lrc.lyric)
-          dispatch(changeLyric(lyricArray))
-          })
+          if(!res.data.lrc) {
+            dispatch(changeLyric([]))
+          }else {
+            console.log(res.data);
+            
+            const lyricArray = parseLyric(res.data.lrc.lyric)
+            dispatch(changeLyric(lyricArray))
+          }
+        })
       })
     }
   }

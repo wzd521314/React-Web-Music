@@ -24,6 +24,11 @@ export const HeaderLeft = styled.div`
     button {
       background-color: transparent;
       color: #ccc;
+      cursor: pointer;
+      &:hover {
+        color: #e2e2e2;
+      }
+
     }
 
     .icon {

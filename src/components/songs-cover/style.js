@@ -6,7 +6,7 @@ export const SongsCoverWrapper = styled.div`
 
   .cover-top {
     position: relative;
-
+    cursor: pointer;
     &>img {
       width: 140px;
       height: 140px;
@@ -52,9 +52,13 @@ export const SongsCoverWrapper = styled.div`
   }
 
   .cover-bottom {
+    cursor: pointer;
     font-size: 14px;
     color: #000;
     margin-top: 5px;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .cover-source {
